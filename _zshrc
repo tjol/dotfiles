@@ -1,0 +1,47 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename ~/.zshrc
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd extendedglob nomatch
+unsetopt notify
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+setopt interactive_comments
+
+fpath=(~/zsh/user-functions $fpath)
+
+autoload -Uz add-zsh-hook
+autoload -Uz bind-standard-keys setup-prompt activate-env
+
+bind-standard-keys
+setup-prompt
+
+unalias run-help
+autoload run-help
+HELPDIR=~/zsh/help
+
+case $TERM in
+  rxvt*)
+    alias -r screen="TERM=xterm screen"
+    ;;
+esac
+
+alias -r "ll"="ls -l"
+alias -r "la"="ls -A"
+
+

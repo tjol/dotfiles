@@ -1,0 +1,26 @@
+# find the virtualenv!
+
+env_activate_script="$HOME/env/$1/bin/activate"
+env35_activate_script="$HOME/env/py35/$1/bin/activate"
+
+if [[ -e "$env_activate_script" ]]
+then
+    # great!
+    . $env_activate_script
+    return 
+elif [[ -e "$env35_activate_script" ]]
+then
+    # is the python 3.5 SCL active?
+    if [[ "$X_SCLS" =~ rh-python35 ]]
+    then
+        # great!
+        . $env35_activate_script
+        return 
+    else
+        ~/zsh/bin/in-virtualenv $1 zsh
+    fi
+else
+    echo >&2 ERROR: env not found!
+fi
+
+

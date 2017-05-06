@@ -1,0 +1,112 @@
+setopt prompt_subst
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+    eval PR_BOLD_$color='%{$terminfo[sgr0]%}%{$terminfo[bold]$fg[${(L)color}]%}'
+    eval PR_$color='%{$terminfo[sgr0]%}%{$fg[${(L)color}]%}'
+    (( count = $count + 1 ))
+done
+PR_NO_COLOUR="%{$terminfo[sgr0]%}"
+
+# colours for the prompt
+_symclr=$PR_BOLD_BLUE
+_clr1=$PR_BLUE
+_clr2=$PR_GREEN
+_clr3=$PR_YELLOW
+_red=$PR_BOLD_RED
+
+# Active SCL collections?
+if [[ -n $X_SCLS ]]; then
+    _SCL_prompt="$_clr2(${_clr3}scl:$_clr1${X_SCLS% }$_clr2)$PR_NO_COLOUR"
+    _SCL_title="(scl: ${X_SCLS% })"
+fi
+
+# Active virtualenv?
+
+function preexec_check_virtualenv () {
+    if [[ "$2" =~ "activate" ]]
+    then
+        __recheck_virtualenv=1
+    fi
+}
+
+
+function precmd_check_virtualenv () {
+    if [[ -n "$__recheck_virtualenv" ]]
+    then
+        if [[ -n "$VIRTUAL_ENV" ]]
+        then
+            unset __recheck_virtualenv
+            _virtualenv_prompt="$_clr2(${_clr3}env:$_clr1$(basename "$VIRTUAL_ENV")$_clr2)$PR_NO_COLOUR"
+            _virtualenv_title="(env: $(basename "$VIRTUAL_ENV"))"
+        else
+            unset _virtualenv_prompt
+        fi
+        unset __recheck_virtualenv
+    fi
+}
+
+
+VIRTUAL_ENV_DISABLE_PROMPT=1
+__recheck_virtualenv=1
+
+function update_prompt() {
+    _statusline="$_SCL_prompt$_virtualenv_prompt$(git_super_status)"
+    _prompt_start=$'%(?.$_clr2.$_red)%?$_symclr:%(!.${_red}root${_clr1}.${_clr1}%n)@%m'
+    _statusline_width=$(print -Pn "$_statusline" | sed -r "s/\x1B[\(\[]([0-9]{1,2}(;[0-9]{1,2})?)?[BmGK]//g" | wc -c)
+    if [[ -n "$_statusline" ]]; then
+        (( _pwd_maxlen = $COLUMNS - 2 - $_statusline_width ))
+        if [[ $_pwd_maxlen -ge 20 ]]; then
+            _pwd_string="$(print -Pn "%$_pwd_maxlen<...<%~")"
+        else
+            # if there's too much going on already, put the PWD on ANOTHER line!
+            _pwd_string="$(print -Pn $'\n%'$(( $COLUMNS - 1))$'<...<%~')"
+        fi
+        PROMPT=$'\n$_statusline $_clr2$_pwd_string\n'"$_prompt_start"$'$_symclr%#$PR_NO_COLOUR '
+    else
+        PROMPT="$_prompt_start"$'$_symclr:$_clr2%20<...<%~$_symclr%#$PR_NO_COLOUR '
+    fi
+
+}
+
+PS2=$'$_clr2%_$_symclr>$PR_NO_COLOUR '
+
+case $TERM in
+  xterm* | rxvt*)
+    set_title () {print -Pn "\e]0;%n@%m:%~ $_title_extra\a"}
+    ;;
+  screen)
+    set_title () {print -Pn "\e_screen \005 (\005t) %n@%m:%~ $_title_extra\e\\"}
+    ;;
+  *)
+    set_title () {}
+    ;;
+esac
+mktitle() {
+    _title_extra="$_SCL_title $_virtualenv_title" set_title
+}
+
+. ~/zsh/zsh-git-prompt/zshrc.sh
+
+update_current_git_vars
+ZSH_THEME_GIT_PROMPT_CACHE=1
+
+ZSH_THEME_GIT_PROMPT_PREFIX="$_clr2($PR_NO_COLOUR"
+ZSH_THEME_GIT_PROMPT_SUFFIX="$_clr2)$PR_NO_COLOUR"
+ZSH_THEME_GIT_PROMPT_SEPARATOR="$_symclr:$PR_NO_COLOUR"
+ZSH_THEME_GIT_PROMPT_BRANCH="$_clr3"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
+
+add-zsh-hook preexec preexec_check_virtualenv
+add-zsh-hook precmd precmd_check_virtualenv
+add-zsh-hook precmd mktitle
+add-zsh-hook precmd update_prompt
+
