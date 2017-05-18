@@ -17,6 +17,8 @@ _clr2=$PR_GREEN
 _clr3=$PR_YELLOW
 _red=$PR_BOLD_RED
 
+[ -e ~/zsh/local-colours ] && . ~/zsh/local-colours
+
 # Active SCL collections?
 if [[ -n $X_SCLS ]]; then
     _SCL_prompt="$_clr2(${_clr3}scl:$_clr1${X_SCLS% }$_clr2)$PR_NO_COLOUR"
