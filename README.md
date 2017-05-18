@@ -3,6 +3,10 @@
 This is where I keep some *dotfiles*, that is to say some local configuration
 files for my Linux systems.
 
+The `zsh` portion requires a submodule, `zsh-git-prompt`. Don't forget to run
+
+    git submodule init
+
 ## Installation
 
 Installation scripts are in `INSTALL/`; to install the zsh files, run
