@@ -1,0 +1,18 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Anaconda",
+		"Color Schemes by carlcalderon",
+		"Git",
+		"GitGutter",
+		"GTKDarkThemeVariantSetter",
+		"Markdown Preview",
+		"Package Control",
+		"SideBarEnhancements",
+		"Theme - SoDaReloaded"
+	]
+}
