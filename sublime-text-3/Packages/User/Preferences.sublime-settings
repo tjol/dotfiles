@@ -6,10 +6,10 @@
 	[
 		"Vintage"
 	],
-        "rulers":
-        [
-            80
-        ],
+	"rulers":
+	[
+		80
+	],
 	"spell_check": true,
 	"tab_size": 4,
 	"theme": "SoDaReloaded Dark.sublime-theme",

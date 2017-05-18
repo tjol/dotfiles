@@ -6,13 +6,29 @@
 	"installed_packages":
 	[
 		"Anaconda",
+		"Character Table",
 		"Color Schemes by carlcalderon",
+		"Dictionaries",
 		"Git",
 		"GitGutter",
+		"Github Color Theme",
 		"GTKDarkThemeVariantSetter",
 		"Markdown Preview",
+		"Material Theme",
+		"Orchid Color Scheme",
 		"Package Control",
+		"Predawn Monokai",
 		"SideBarEnhancements",
-		"Theme - SoDaReloaded"
+		"Terminal",
+		"Theme - Flatland",
+		"Theme - Moka",
+		"Theme - Monokai",
+		"Theme - Orchis",
+		"Theme - Piatto",
+		"Theme - Soda",
+		"Theme - SoDaReloaded",
+		"Theme - Sodarized",
+		"Theme - Spacegray",
+		"WordCount"
 	]
 }
