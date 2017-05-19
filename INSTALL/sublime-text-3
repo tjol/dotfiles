@@ -3,8 +3,10 @@
 typeset -A FILES
 
 BASE=$HOME/.config/sublime-text-3/Packages
-FILES=(sublime-text-3/Packages/User User)
+FILES=(sublime-text-3/Packages/User User
+       sublime-text-3/Packages/Dictionaries Dictionaries)
 
+INSTALLER_NAME=$(basename $0)
 source $(dirname ${0:a})/do-install.inc.zsh
 
 

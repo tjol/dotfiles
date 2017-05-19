@@ -1,12 +1,10 @@
 
 setopt extendedglob 
 
-installer_name=$(basename $0)
-
 # go to source directory (if not already there)
 cd $(dirname $(dirname "${0:a}"))
 
-echo INSTALLING dotfiles for $installer_name
+echo INSTALLING dotfiles for $INSTALLER_NAME
 
 for myfile in ${(k)FILES}
 do
