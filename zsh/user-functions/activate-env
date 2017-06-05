@@ -11,13 +11,14 @@ then
 elif [[ -e "$env35_activate_script" ]]
 then
     # is the python 3.5 SCL active?
-    if [[ "$X_SCLS" =~ rh-python35 ]]
+    if [[ ! "$X_SCLS" =~ rh-python35  && -d /opt/rh/rh-python35 ]]
     then
-        # great!
+        # Get in that virtualenv!
+        ${ZSH_CONFIG_HOME}/bin/in-virtualenv $1 zsh
+    else
+        # Everything is wonderful
         . $env35_activate_script
         return 
-    else
-        ${ZSH_CONFIG_HOME}/bin/in-virtualenv $1 zsh
     fi
 else
     echo >&2 ERROR: env not found!

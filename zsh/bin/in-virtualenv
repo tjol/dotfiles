@@ -7,7 +7,7 @@ if [[ -d "$HOME/env/$env" ]]; then
     envdir="$HOME/env/$env"
 elif [[ -d "$HOME/env/py35/$env" ]]; then
     envdir="$HOME/env/py35/$env"
-    if [[ ! "$X_SCLS" =~ rh-python35 ]]; then
+    if [[ ! "$X_SCLS" =~ rh-python35  && -d /opt/rh/rh-python35 ]]; then
         exec scl enable rh-python35 "\"$0\" \"$1\" \"$2\""
         exit $?
     fi
