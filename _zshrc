@@ -13,6 +13,9 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
+
+ZSH_CONFIG_HOME=${ZSH_CONFIG_HOME:-~/zsh}
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -23,7 +26,7 @@ bindkey -e
 
 setopt interactive_comments
 
-fpath=(~/zsh/user-functions $fpath)
+fpath=(${ZSH_CONFIG_HOME}/user-functions $fpath)
 
 autoload -Uz add-zsh-hook
 autoload -Uz bind-standard-keys setup-prompt activate-env
@@ -33,7 +36,7 @@ setup-prompt
 
 unalias run-help
 autoload run-help
-HELPDIR=~/zsh/help
+HELPDIR=${ZSH_CONFIG_HOME}/help
 
 case $TERM in
   rxvt*)

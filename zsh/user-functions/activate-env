@@ -17,7 +17,7 @@ then
         . $env35_activate_script
         return 
     else
-        ~/zsh/bin/in-virtualenv $1 zsh
+        ${ZSH_CONFIG_HOME}/bin/in-virtualenv $1 zsh
     fi
 else
     echo >&2 ERROR: env not found!

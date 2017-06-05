@@ -17,7 +17,7 @@ _clr2=$PR_GREEN
 _clr3=$PR_YELLOW
 _red=$PR_BOLD_RED
 
-[ -e ~/zsh/local-colours ] && . ~/zsh/local-colours
+[ -e ${ZSH_CONFIG_HOME}/local-colours ] && . ${ZSH_CONFIG_HOME}/local-colours
 
 # Active SCL collections?
 if [[ -n $X_SCLS ]]; then
@@ -90,7 +90,7 @@ mktitle() {
     _title_extra="$_SCL_title $_virtualenv_title" set_title
 }
 
-. ~/zsh/zsh-git-prompt/zshrc.sh
+. ${ZSH_CONFIG_HOME}/zsh-git-prompt/zshrc.sh
 
 update_current_git_vars
 ZSH_THEME_GIT_PROMPT_CACHE=1
