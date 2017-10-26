@@ -10,4 +10,6 @@ bindkey '^[[7~' beginning-of-line
 bindkey '^[[8~' end-of-line
 bindkey '^[[H'  beginning-of-line
 bindkey '^[[O'  beginning-of-line
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
 
