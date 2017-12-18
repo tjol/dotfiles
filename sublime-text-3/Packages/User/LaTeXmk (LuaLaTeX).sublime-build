@@ -1,0 +1,3 @@
+{
+    "cmd": ["latexmk", "-lualatex", "-interaction=nonstopmode", "-cd"]
+}

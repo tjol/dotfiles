@@ -38,7 +38,12 @@ function preexec_check_virtualenv () {
 function precmd_check_virtualenv () {
     if [[ -n "$__recheck_virtualenv" ]]
     then
-        if [[ -n "$VIRTUAL_ENV" ]]
+        if [[ -n "$CONDA_DEFAULT_ENV" ]]
+        then
+            unset __recheck_virtualenv
+            _virtualenv_prompt="$_clr2(${_clr3}conda:$_clr1$CONDA_DEFAULT_ENV$_clr2)$PR_NO_COLOUR"
+            _virtualenv_title="(conda: $CONDA_DEFAULT_ENV)"
+        elif [[ -n "$VIRTUAL_ENV" ]]
         then
             unset __recheck_virtualenv
             _virtualenv_prompt="$_clr2(${_clr3}env:$_clr1$(basename "$VIRTUAL_ENV")$_clr2)$PR_NO_COLOUR"
