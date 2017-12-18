@@ -1,5 +1,14 @@
 # find the virtualenv!
 
+
+conda_dir=$(conda env list | fgrep "$1" | sed -r 's,^[^/]*(/.*)$,\1,')
+
+if [[ -d "$conda_dir" ]] && [[ -e "$conda_dir"/bin/activate ]]
+then
+    . "$conda_dir"/bin/activate
+    return
+fi
+
 env_activate_script="$HOME/env/$1/bin/activate"
 env35_activate_script="$HOME/env/py35/$1/bin/activate"
 

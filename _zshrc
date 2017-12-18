@@ -29,7 +29,7 @@ setopt interactive_comments
 fpath=(${ZSH_CONFIG_HOME}/user-functions $fpath)
 
 autoload -Uz add-zsh-hook
-autoload -Uz bind-standard-keys setup-prompt activate-env
+autoload -Uz bind-standard-keys setup-prompt activate-env nyan
 
 bind-standard-keys
 setup-prompt
