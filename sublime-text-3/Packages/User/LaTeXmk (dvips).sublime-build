@@ -1,0 +1,3 @@
+{
+    "cmd": ["latexmk", "-pdfps", "-ps", "-interaction=nonstopmode", "-cd"]
+}
