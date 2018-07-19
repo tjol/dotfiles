@@ -1,6 +1,6 @@
 [submodule "zsh/zsh-git-prompt"]
 	path = zsh/zsh-git-prompt
-	url = https://github.com/olivierverdier/zsh-git-prompt.git
+	url = https://github.com/cbeneke/zsh-git-prompt.git
 [submodule "sublime-text-3/Packages/Dictionaries"]
 	path = sublime-text-3/Packages/Dictionaries
 	url = https://github.com/titoBouzout/Dictionaries.git
