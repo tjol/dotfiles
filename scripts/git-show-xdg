@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+
+# Prepare the temp. file
+
 commit="${1%%:*}"
 fn="${1#*:}"
 
@@ -17,12 +20,42 @@ then
 fi
 
 
-ext="${fn##*.}"
+tempfile=$(mktemp "/tmp/tmp.git-show-xdg.XXXXXX.$(basename $fn)")
+git show "$commit:$fn" > "$tempfile"
 
-tempfile=$(mktemp "tmp.git-show-xdg.XXXXXX.$ext")
+# Now find the appropriate command
 
-git show "$commit:$fn" > "$tempfile" && xdg-open "$tempfile"
+mime_type=$(xdg-mime query filetype "$tempfile")
+
+if [[ "$XDG_CURRENT_DESKTOP" = "GNOME" ]]
+then
+    desktop_entry=$(gio mime image/png | head -1 | sed -r 's/^.*: (.*)$/\1/')
+else
+    desktop_entry=$(xdg-mime query default "$mime_type")
+fi
+
+
+if [[ -z $desktop_entry ]]; then echo ERROR finding default; rm -f "$tempfile"; exit 1; fi
+
+for data_dir in $(echo "$XDG_DATA_DIRS" | tr ':' ' ')
+do
+    potench=$(find "$data_dir/applications" -name "$desktop_entry" 2>/dev/null | head -1)
+    if [[ -n "$potench" ]] && [[ -e "$potench" ]]
+    then
+        dex="$potench"
+        break
+    fi
+done
+
+if [[ -z $dex ]]; then echo ERROR finding $desktop_entry; rm -f "$tempfile"; exit 1; fi
+
+program=$(grep -i ^exec "$dex" | sed -r 's/.*?=([^ ]*) .*$/\1/')
+
+if [[ -z $program ]]; then echo ERROR finding program in $dex ; rm -f "$tempfile"; exit 1; fi
+
+"$program" "$tempfile"
+
 exit_code=$?
-sleep 1
 rm -f "$tempfile" && exit $exit_code
+
 
