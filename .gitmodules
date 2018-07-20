@@ -4,3 +4,6 @@
 [submodule "sublime-text-3/Packages/Dictionaries"]
 	path = sublime-text-3/Packages/Dictionaries
 	url = https://github.com/titoBouzout/Dictionaries.git
+[submodule "external/nyancat"]
+	path = external/nyancat
+	url = https://github.com/klange/nyancat

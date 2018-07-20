@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+nyandir=$(dirname ${0:A})/../external/nyancat
+
+if ! [[ -x $nyandir/src/nyancat ]]
+then
+    cd $nyandir
+    make
+    rm src/*.o
+fi
+
+if [[ $TERM = linux ]] then TERM=fallback exec $nyandir/src/nyancat
+else exec $nyandir/src/nyancat
+fi
+
