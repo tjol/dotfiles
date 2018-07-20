@@ -47,4 +47,9 @@ esac
 alias -r "ll"="ls -l"
 alias -r "la"="ls -A"
 
+dotfiles_root=$(dirname $(readlink -f ~/.zshrc))
+if [[ -d "$dotfiles_root/scripts" ]]; then
+    export PATH="$PATH:$dotfiles_root/scripts"
+fi
+
 

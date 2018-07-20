@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+commit="${1%%:*}"
+fn="${1#*:}"
+
+if [[ "$fn" = "$commit" ]]
+then
+    commit=HEAD
+fi
+
+if [[ -z "$fn" ]]
+then
+    echo >&2 "Usage:"
+    echo >&2 "    $(basename $0) <file-name>"
+    echo >&2 "    $(basename $0) <commit>:<file-name>"
+    exit 2
+fi
+
+
+ext="${fn##*.}"
+
+tempfile=$(mktemp "tmp.git-show-xdg.XXXXXX.$ext")
+
+git show "$commit:$fn" > "$tempfile" && xdg-open "$tempfile"
+exit_code=$?
+sleep 1
+rm -f "$tempfile" && exit $exit_code
+
