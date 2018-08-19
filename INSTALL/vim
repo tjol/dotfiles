@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+typeset -A FILES
+
+BASE=$HOME
+FILES=(_vimrc .vimrc)
+
+INSTALLER_NAME=$(basename $0)
+source $(dirname ${0:a})/do-install.inc.zsh
+

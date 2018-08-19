@@ -6,6 +6,7 @@ files for my Linux systems.
 These dotfiles require some submodules, so don't forget to run
 
     git submodule init
+    git submodule update
 
 ## Installation
 
