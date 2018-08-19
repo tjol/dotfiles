@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+this_dir="$(dirname ${0:a})"
+dotfiles_dir="${this_dir}/.."
+gitconfig_inc="${dotfiles_dir:a}/gitconfig.inc"
+
+if [[ ! -e ~/.gitconfig ]]; then
+    echo >&2 ~/.gitconfig does not exist!
+    passdb_entry="$(getent passwd $(whoami))"
+    passdb_elems=(${(s/:/)passdb_entry})
+    gecos=(${(s/,/)passdb_elems[5]})
+    user_name=${gecos[1]}
+    vared -p "User name: " user_name
+    vared -p "Email: " -c user_email
+    [[ -n "$user_name" ]] && git config -f ~/.gitconfig user.name "$user_name"
+    [[ -n "$user_email" ]] && git config -f ~/.gitconfig user.email "$user_email"
+fi
+
+if fgrep -q "$gitconfig_inc" ~/.gitconfig; then
+    echo >&2 gitconfig already installed
+else
+    echo >&2 installing $gitconfig_inc to ~/.gitconfig
+    git config -f ~/.gitconfig --add include.path "${gitconfig_inc}"
+fi
+
+
