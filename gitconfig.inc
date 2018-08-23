@@ -8,3 +8,8 @@
 	ui = true
 [push]
 	default = simple
+[core]
+        editor = vim
+        autocrlf = input
+[merge]
+	tool = meld
