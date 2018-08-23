@@ -28,7 +28,7 @@ fi
 # Active virtualenv?
 
 function preexec_check_virtualenv () {
-    if [[ "$2" =~ "activate" ]]
+    if [[ "$2" =~ "activate" || "$2" =~ "conda" ]]
     then
         __recheck_virtualenv=1
     fi
@@ -52,6 +52,7 @@ function precmd_check_virtualenv () {
             unset _virtualenv_prompt
         fi
         unset __recheck_virtualenv
+        HOST=`hostname`
     fi
 }
 
