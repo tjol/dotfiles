@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 this_dir="$(dirname ${0:a})"
 dotfiles_dir="${this_dir}/.."
