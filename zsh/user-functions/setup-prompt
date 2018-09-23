@@ -63,7 +63,7 @@ __recheck_virtualenv=1
 function update_prompt() {
     _statusline="$_SCL_prompt$_virtualenv_prompt$(git_super_status)"
     _prompt_start=$'%(?.$_clr2.$_red)%?$_symclr:%(!.${_red}root${_clr1}.${_clr1}%n)@%m'
-    _statusline_width=$(print -Pn "$_statusline" | sed -r "s/\x1B[\(\[]([0-9]{1,2}(;[0-9]{1,2})?)?[BmGK]//g" | wc -c)
+    _statusline_width=$(print -Pn "$_statusline" | sed -r $'s/\x1B[\(\[]([0-9]{1,2}(;[0-9]{1,2})?)?[BmGK]//g' | wc -c)
     if [[ -n "$_statusline" ]]; then
         (( _pwd_maxlen = $COLUMNS - 2 - $_statusline_width ))
         if [[ $_pwd_maxlen -ge 20 ]]; then

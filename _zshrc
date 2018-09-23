@@ -44,7 +44,15 @@ case $TERM in
     ;;
 esac
 
-alias -r "ls"="ls --color=auto -F"
+if ls --version 2>/dev/null | head -1 | grep -q GNU
+then
+	alias -r "ls"="ls --color=auto -F"
+elif [[ $(uname) = FreeBSD ]]
+then
+	alias -r "ls"="ls -GF"
+else
+	alias -r "ls"="ls -F"
+fi
 alias -r "ll"="ls -l"
 alias -r "la"="ls -A"
 
