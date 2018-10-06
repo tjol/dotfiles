@@ -96,7 +96,22 @@ mktitle() {
     _title_extra="$_SCL_title $_virtualenv_title" set_title
 }
 
-. ${ZSH_CONFIG_HOME}/zsh-git-prompt/zshrc.sh
+git_prompt_home="${ZSH_CONFIG_HOME}/zsh-git-prompt"
+
+if whence stack >/dev/null
+then
+    if [[ ! -e ${git_prompt_home}/src/.bin/status ]]
+    then (
+        cd $git_prompt_home
+        echo BUILDING zsh-git-prompt haskell binary
+        sed -i s/lts-5.0/lts-12.11/ stack.yaml
+        stack setup && stack build && stack install
+        )
+    fi
+    GIT_PROMPT_EXECUTABLE=haskell
+fi
+
+. "${git_prompt_home}/zshrc.sh"
 
 update_current_git_vars
 ZSH_THEME_GIT_PROMPT_CACHE=1
