@@ -9,4 +9,5 @@ set ts=4 sw=4
 set smarttab expandtab autoindent smartindent
 set backspace=eol,start,indent
 
+set modeline modelines=5
 
