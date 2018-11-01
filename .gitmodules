@@ -7,3 +7,6 @@
 [submodule "external/nyancat"]
 	path = external/nyancat
 	url = https://github.com/klange/nyancat
+[submodule "external/xcompose"]
+	path = external/xcompose
+	url = https://github.com/kragen/xcompose.git

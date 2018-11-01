@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+this_dir="$(dirname ${0:a})"
+dotfiles_dir="${this_dir}/.."
+xcompose_dir="${dotfiles_dir:a}/external/xcompose"
+
+if [[ -e ~/.XCompose ]]; then
+    echo >&2 ~/.XCompose exists!
+    exit 2
+fi
+
+cd $xcompose_dir
+if which gmake >/dev/null 2>&1
+then
+    # GNU make is gmake
+    gmake || exit 1
+else
+    # GNU make is probably make?
+    make || exit 1
+fi
+
+cat < "${xcompose_dir}/dotXCompose" > ~/.XCompose
+cat < "${xcompose_dir}/frakturcompose" >> ~/.XCompose
+cat < "${xcompose_dir}/emoji.compose" >> ~/.XCompose
+cat < "${xcompose_dir}/modletters.compose" >> ~/.XCompose
+cat < "${xcompose_dir}/parens.compose" >> ~/.XCompose
+
+echo ~/.XCompose created
+
