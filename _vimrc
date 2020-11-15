@@ -1,5 +1,7 @@
 set history=500
 
+set nocompatible
+
 filetype plugin on
 filetype indent on
 
@@ -10,4 +12,5 @@ set smarttab expandtab autoindent smartindent
 set backspace=eol,start,indent
 
 set modeline modelines=5
+
 
