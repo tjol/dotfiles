@@ -100,7 +100,7 @@ git_prompt_home="${ZSH_CONFIG_HOME}/zsh-git-prompt"
 
 if whence stack >/dev/null
 then
-    if [[ ! -e ${git_prompt_home}/src/.bin/status ]]
+    if [[ ! -e ${git_prompt_home}/src/.bin/gitstatus ]]
     then (
         cd $git_prompt_home
         echo BUILDING zsh-git-prompt haskell binary
