@@ -9,7 +9,10 @@
 [push]
 	default = simple
 [core]
-        editor = vim
-        autocrlf = input
+	editor = vim
+	autocrlf = input
 [merge]
 	tool = meld
+
+# vim: ft=gitconfig noet ts=4 sw=4
+

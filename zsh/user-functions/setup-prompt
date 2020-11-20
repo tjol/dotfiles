@@ -140,3 +140,5 @@ add-zsh-hook precmd precmd_check_virtualenv
 add-zsh-hook precmd mktitle
 add-zsh-hook precmd update_prompt
 
+# vim: ft=zsh
+
