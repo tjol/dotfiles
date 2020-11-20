@@ -82,18 +82,25 @@ function update_prompt() {
 PS2=$'$_clr2%_$_symclr>$PR_NO_COLOUR '
 
 case $TERM in
-  xterm* | rxvt*)
-    set_title () {print -Pn "\e]0;%n@%m:%~ $_title_extra\a"}
+  xterm* | rxvt* | alacritty )
+    _set_title () {print -n "\e]0;$1\a"}
     ;;
-  screen)
-    set_title () {print -Pn "\e_screen \005 (\005t) %n@%m:%~ $_title_extra\e\\"}
+  screen*)
+    if [[ -n "$TMUX" ]]
+    then
+        _set_title () {print -Pn "\e_$1\e\\"}
+    else
+        _set_title () {print -Pn "\e_screen \005 (\005t) $1\e\\"}
+    fi
     ;;
   *)
-    set_title () {}
+    _set_title () {}
     ;;
 esac
+
 mktitle() {
-    _title_extra="$_SCL_title $_virtualenv_title" set_title
+    title=$(print -Pn "%n@%m:%~" $_SCL_title $_virtualenv_title)
+    _set_title $title
 }
 
 git_prompt_home="${ZSH_CONFIG_HOME}/zsh-git-prompt"
