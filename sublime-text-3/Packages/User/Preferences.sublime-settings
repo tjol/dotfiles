@@ -1,6 +1,6 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
-	"dictionary": "Packages/Language - English/en_GB.dic",
+	"color_scheme": "Packages/Color Schemes by carlcalderon/Stereokai/Stereokai.tmTheme",
+	"dictionary": "Packages/Dictionaries/German_de_DE.dic",
 	"font_size": 10,
 	"ignored_packages":
 	[
@@ -13,6 +13,6 @@
 	],
 	"spell_check": true,
 	"tab_size": 4,
-	"theme": "Default.sublime-theme",
+	"theme": "Piatto Dark.sublime-theme",
 	"translate_tabs_to_spaces": true
 }
